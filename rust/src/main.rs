@@ -1,7 +1,7 @@
 // Initial System
 
 trait Exp {
-    fn eval(self) -> i64;
+    fn eval(&self) -> i64;
 }
 
 struct Lit {
@@ -14,13 +14,13 @@ struct Add<E> {
 }
 
 impl Exp for Lit {
-    fn eval(self) -> i64 {
+    fn eval(&self) -> i64 {
         self.x
     }
 }
 
 impl<E: Exp> Exp for Add<E> {
-    fn eval(self) -> i64 {
+    fn eval(&self) -> i64 {
         self.e1.eval() + self.e2.eval()
     }
 }
@@ -33,7 +33,7 @@ struct Sub<E> {
 }
 
 impl<E: Exp> Exp for Sub<E> {
-    fn eval(self) -> i64 {
+    fn eval(&self) -> i64 {
         self.e1.eval() - self.e2.eval()
     }
 }
@@ -67,5 +67,6 @@ fn main() {
         e1: Lit { x: 1 },
         e2: Lit { x: 2 },
     };
+
     assert_eq!(add_p.print(), "1 + 2".to_string());
 }
